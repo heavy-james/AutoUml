@@ -1,0 +1,96 @@
+apply plugin: 'groovy'
+
+//write this line when use autouml
+apply plugin: 'org.gradle.autouml'
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile 'org.json:json:20160810'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: LOCAL_REPO_URL)
+        pom.groupId = PROJ_GROUP
+        pom.artifactId = PROJ_ARTIFACTID
+        pom.version = PROJ_VERSION
+    }
+}
+
+
+//the umlConfig closure is for plugin autouml,write them when using
+
+umlConfig {
+
+    restorePath project.buildDir.absolutePath
+
+    classpaths {
+        add "/Users/heavy/workspace/git-space/open/sdk-source/gradle/build/integ test/lib"
+    }
+
+    packages {
+        add "org.gradle.launcher.cli"
+        add "org.gradle.internal.service"
+    }
+
+    //when classes specified, the packages configure closure will be ignored, cause we think you want
+    //to analyse the given classes only.
+    classes {
+        add "org.gradle.internal.service.DefaultServiceRegistry"
+        add "org.gradle.launcher.cli.BuildActionsFactory"
+        add "org.gradle.launcher.cli.CommandLineAction"
+    }
+
+    //the same type diagram with different config will be create once.
+    formats {
+
+        json{
+            setOrgnization "package"
+        }
+
+        json{
+            setOrgnization "class"
+        }
+
+
+        classDiagram{
+            //if show field in class entity or not
+            setWithFieldInfo true
+            //if show method in class entity ort not
+            setWithMethodInfo true
+            //if print package info with class name or not
+            setWithPackageInfo true
+            supportedRelation{
+                //show super class or not,described with extends
+                add "extension"
+                //show implemented interfaces or not,described with : implements
+                add "implement"
+                //show fields' types or not, described with : contains
+                add "composition"
+                //show method return add parameters' types or not, described with : uses
+                add "aggregation"
+                //show declared member classes , described with : declares
+                add "declaration"
+            }
+        }
+
+        classDiagram{
+            setWithFieldInfo false
+            setWithMethodInfo false
+            setWithPackageInfo false
+            supportedRelation{
+                add "extension"
+                add "implement"
+                //add "composition"
+                //add "aggregation"
+                //add "declaration"
+            }
+        }
+
+    }
+}
+
