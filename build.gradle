@@ -3,16 +3,21 @@
 buildscript {
     repositories {
         jcenter()
+        //for using plugin to build example, it will be added to jcenter not long
+        maven{
+            url 'https://dl.bintray.com/boyankeji/maven'
+        }
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.1'
 
-
+        //for bintray upload
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        //for example building
+        classpath 'com.boyan.heavy:autouml:1.0.0'
+
     }
 }
 

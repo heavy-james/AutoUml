@@ -1,1 +1,1 @@
-include 'autouml'
+include 'autouml', 'example'

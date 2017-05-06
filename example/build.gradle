@@ -1,0 +1,61 @@
+apply plugin: 'org.gradle.autouml'
+
+
+umlConfig {
+
+    restorePath project.buildDir.absolutePath
+
+    classpaths {
+        add "/Users/heavy/workspace/git-space/open/sdk-source/gradle/build/integ test/lib"
+    }
+
+    packages {
+        add "org.gradle.launcher.cli"
+        add "org.gradle.internal.service"
+    }
+
+    classes {
+        add "org.gradle.internal.service.DefaultServiceRegistry"
+        add "org.gradle.launcher.cli.BuildActionsFactory"
+        add "org.gradle.launcher.cli.CommandLineAction"
+    }
+
+    //
+    formats {
+
+        json{
+            setOrgnization "package"
+        }
+
+        json{
+            setOrgnization "class"
+        }
+
+
+            classDiagram{
+                setWithFieldInfo true//if show field in class entity or not,default both
+                setWithMethodInfo true//if show method in class entity ort not,default both
+                setWithPackageInfo true//if print package info with class name or not,default both
+                supportedRelation{
+                    add "extension" //show super class or not,descripted with extends, default supported
+                    add "implement" //show implemented interfaces or not,descripted with : implements,default suppored
+                    add "composition"//show fields' types or not, descripted with : contains, default ignored
+                    add "aggregation"//show method return add parameters' types or not, descripted with : uses, default ignored
+                    add "declaration"
+                }
+            } 
+
+            classDiagram{
+                //setWithFieldInfo true//if show field in class entity or not,default both
+                //setWithMethodInfo true//if show method in class entity ort not,default both
+                //setWithPackageInfo true//if print package info with class name or not,default both
+                supportedRelation{
+                    add "extension" //show super class or not,descripted with extends, default supported
+                    add "implement" //show implemented interfaces or not,descripted with : implements,default suppored
+                    add "composition"//show fields' types or not, descripted with : contains, default ignored
+                    add "aggregation"//show method return add parameters' types or not, descripted with : uses, default ignored
+                    add "declaration"
+                }
+            }    
+    }
+}
