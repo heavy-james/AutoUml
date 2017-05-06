@@ -1,0 +1,92 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+//write this line when use autouml
+//apply plugin: 'org.gradle.autouml'
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile 'org.json:json:20160810'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+//for local maven repo
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: LOCAL_REPO_URL)
+        pom.groupId = PROJ_GROUP
+        pom.artifactId = PROJ_ARTIFACTID
+        pom.version = PROJ_VERSION
+    }
+}
+
+
+apply plugin: 'com.jfrog.bintray'
+
+version = "1.0.0"
+group = "com.boyan.heavy"
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'jar'
+                // Add your description here
+                name 'Auto uml generation plugin of gradle'     //项目描述
+                url SITE_URL
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'heavy-james'
+                        name 'heavy james'
+                        email 'zhanhaifei@126.com'
+                    }
+                }
+                scm {
+                    connection GIT_URL
+                    developerConnection GIT_URL
+                    url SITE_URL
+                }
+            }
+        }
+    }
+}
+task sourcesJar(type: Jar) {
+    from project.buildDir.name + "/libs"
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        userOrg = "boyankeji"//JCenter上创建的的Organization
+        repo = "maven"//你要上传的库的名字
+        name = "AutoUmlPlugin"    //发布到JCenter上的项目名字
+        websiteUrl = ""
+        vcsUrl = "https://github.com/heavy-james/AutoUml.git"
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
+
