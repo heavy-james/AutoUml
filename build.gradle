@@ -2,20 +2,21 @@
 
 buildscript {
     repositories {
+        //maven{
+            //debug local repo
+            //url 'file:///Users/heavy/Documents/Android/repo'
+        //}
         jcenter()
         //for using plugin to build example, it will be added to jcenter not long
 
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
-
         //for bintray upload
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
 
         //for example building
-        classpath 'com.boyan.heavy:autouml:1.0.2'
-
+        classpath 'com.boyan.heavy:autouml:1.0.3'
     }
 }
 

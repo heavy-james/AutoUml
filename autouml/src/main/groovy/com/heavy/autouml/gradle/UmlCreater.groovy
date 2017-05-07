@@ -11,6 +11,7 @@ import com.heavy.autouml.util.FileUtil
 import com.heavy.autouml.util.LogUtil
 import com.heavy.autouml.view.JsonView
 import com.heavy.autouml.view.UMLClassDiagramView
+import org.gradle.internal.classloader.ClasspathUtil
 import org.gradle.internal.classloader.VisitableURLClassLoader
 
 public class UmlCreater {
@@ -71,22 +72,42 @@ public class UmlCreater {
         }
     }
 
-    private void setUpCommonData() {
-        List<URL> urls = FileUtil.toUrls(FileUtil.getAllJARS(classPaths));
-        urls.addAll(FileUtil.toUrls(classPaths).toList());
+    private void setUpClasses(){
+        Set<String> resultClassNames = new HashSet<>();
+        for(String packageName : packageNames){
+            resultClassNames.addAll(ClassPathUtil.getClassName(packageName, loader, true));
+        }
+        resultClassNames.addAll(classNames);
+        classNames = resultClassNames.toArray(new String[0]);
+        classes = ClassPathUtil.collectClasses(classNames, loader);
+    }
+
+    private void setUpClassLoader(){
+        List<URL> urls = FileUtil.fileNamesToUrls(classPaths).toList();
+        urls.addAll(FileUtil.filesToUrls(FileUtil.getAllJARS(classPaths)));
         if (urls != null) {
             for (URL url : urls) {
-                LogUtil.d("UmlCreater", "setUpCommonData classpath url-->" + url.toString());
+                LogUtil.d("UmlCreater", "setUpClassLoader classpath url-->" + url.toString());
             }
         } else {
-            LogUtil.w("UmlCreater", "setUpCommonData classpath empty");
+            LogUtil.w("UmlCreater", "setUpClassLoader classpath empty");
         }
+
         loader = new VisitableURLClassLoader(this.getClass().getClassLoader(), urls);
-        classes = ClassPathUtil.collectClasses(packageNames, classNames, loader);
+
+    }
+
+    private void setUpClassDatas(){
         for (Class<?> clazz : classes) {
             LogUtil.d("UmlCreater", "setUpCommonData result class-->" + clazz.getName());
         }
         datas = DefaultClassData.convertToClassDiagramDatas(classes);
+    }
+
+    private void setUpCommonData() {
+        setUpClassLoader();
+        setUpClasses();
+        setUpClassDatas();
     }
 
     private void setUpJsonViewData() {

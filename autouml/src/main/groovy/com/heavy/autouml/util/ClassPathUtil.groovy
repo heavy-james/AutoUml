@@ -148,18 +148,8 @@ public class ClassPathUtil {
     }
 
     public
-    static List<Class<?>> collectClasses(String[] packageNames, String[] classNames, ClassLoader loader) {
+    static List<Class<?>> collectClasses(String[] classNames, ClassLoader loader) {
         List<Class<?>> result = new ArrayList<Class<?>>();
-
-        for (String name : packageNames) {
-            try {
-                result.addAll(loader.getPackgeSpecClasses(name));
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                continue;
-            }
-        }
-
         for (String name : classNames) {
             try {
                 Class<?> clazz = loader.loadClass(name);

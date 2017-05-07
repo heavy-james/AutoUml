@@ -5,24 +5,6 @@ import org.gradle.internal.classpath.DefaultClassPath
 
 public class FileUtil {
 
-    public static URL[] toUrls(String str) {
-        List<File> files = getAllFiles(new File(str));
-        return toUrls(files);
-    }
-
-    public static URL[] toUrls(String[] fileNames) {
-        List<File> files = new ArrayList<File>();
-        for (String name : fileNames) {
-            files.add(new File(name));
-        }
-        return toUrls(files);
-    }
-
-    public static List<URL> toUrls(List<File> files) {
-        List<URL> urls = new DefaultClassPath(files).getAsURLs();
-        return urls;
-    }
-
     public static List<File> getAllFiles(File file) {
         List<File> files = new LinkedList<File>();
         if (file.exists()) {
@@ -39,11 +21,13 @@ public class FileUtil {
 
     public static List<File> getAllJARS(File file) {
         List<File> files = getAllFiles(file);
+        List<File> toRemove = new ArrayList<>();
         for (File temp : files) {
             if (!temp.isFile() || !temp.exists() || !temp.getName().endsWith(".jar")) {
-                files.remove(temp);
+                toRemove.add(temp);
             }
         }
+        files.removeAll(toRemove);
         return files;
     }
 
@@ -55,14 +39,17 @@ public class FileUtil {
         return result;
     }
 
-    public static String path2Package(String path) {
-        String result = path.replaceAll(File.separator, ".");
-        return result;
+    public static List<URL> filesToUrls(List<File> files){
+        return new DefaultClassPath((files)).getAsURLs();
     }
 
-    public static String package2Path(String path) {
-        String result = path.replaceAll(".", File.separator);
-        return result;
+    public static List<URL> fileNamesToUrls(String[] fileNames) {
+        List<File> files = new ArrayList<>();
+        for(String fileName : fileNames){
+            File file = new File(fileName);
+            files.add(file);
+        }
+        return filesToUrls(files);
     }
 
     public static void writeFile(String fileName, String content, boolean append) {

@@ -8,7 +8,8 @@ umlConfig {
 
     //paths contains the class files or jar files.
     classpaths {
-        add project.rootProject.projectDir.name + "autouml/build/libs"
+        add project.rootProject.projectDir.absolutePath + "/autouml/build/libs"
+        add project.rootProject.projectDir.absolutePath + "/autouml/build/classes"
     }
 
     //all classes's diagram in the specified packages will be create in the result.
