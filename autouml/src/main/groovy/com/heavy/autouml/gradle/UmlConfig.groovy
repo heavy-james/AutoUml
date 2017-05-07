@@ -4,6 +4,7 @@ import com.heavy.autouml.model.AddableStringConfig
 import com.heavy.autouml.model.ClassDiagramConfig
 import com.heavy.autouml.model.JsonConfig
 import com.heavy.autouml.util.LogUtil
+import com.heavy.autouml.util.TextUtil
 
 
 public class UmlConfig {
@@ -26,7 +27,9 @@ public class UmlConfig {
     }
 
     public void restorePath(String path) {
-        restorePath = path;
+        if(!TextUtil.isEmpty(path)){
+            restorePath = path;
+        }
     }
 
     def classpaths(Closure closure) {

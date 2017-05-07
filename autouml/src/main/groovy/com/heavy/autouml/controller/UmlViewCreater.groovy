@@ -27,7 +27,7 @@ public class UmlViewCreater {
         this(data.getName(), DiagramDataOrganiser.collectAndTrimAllDatas(data), config);
     }
 
-    //constructor for given classes diagram, always using in package view
+    //constructor for given classes diagram, always used in package view
     public UmlViewCreater(String name, Collection<IClassData> datas, ClassDiagramConfig config) {
         this(name, datas, DiagramDataOrganiser.buildDependencies(datas), config);
     }

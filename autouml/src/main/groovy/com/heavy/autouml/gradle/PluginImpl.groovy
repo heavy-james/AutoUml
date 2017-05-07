@@ -11,7 +11,7 @@ public class PluginImpl implements Plugin<Project> {
         LogUtil.init(getLogLevel(project), false, null);
 
         UmlConfig umlConfig = new UmlConfig();
-
+        umlConfig.restorePath = project.buildDir.name;
         project.extensions.add("umlConfig", umlConfig)
 
         project.task('createUml') {

@@ -29,7 +29,7 @@ public class UmlCreater {
 
     public UmlCreater(UmlConfig config) {
         resotrePath = config.restorePath + "/AutoUml/";
-        LogUtil.v(TAG, "resotrePath -->" + resotrePath);
+        LogUtil.i(TAG, "resotrePath -->" + resotrePath);
 
         classPaths = config.classpaths.getContents();
         printData(classPaths, "classPaths");
@@ -63,10 +63,10 @@ public class UmlCreater {
     }
 
     private void printData(String[] datas, String tag) {
-        LogUtil.v(TAG, "$tag -->" + datas.size());
+        LogUtil.d(TAG, "$tag -->" + datas.size());
         if (datas != null) {
             for (String data : datas) {
-                LogUtil.v(TAG, "$tag -->" + data);
+                LogUtil.d(TAG, "$tag -->" + data);
             }
         }
     }

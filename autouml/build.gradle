@@ -29,8 +29,8 @@ uploadArchives {
 
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.0.0"
-group = "com.boyan.heavy"
+version = PROJ_VERSION
+group = PROJ_GROUP
 
 install {
     repositories.mavenInstaller {
