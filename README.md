@@ -1,7 +1,26 @@
 # AutoUml
 this is a gradle plugin for uml generation, also support json description of classes' relationship.
 
-## 
+## Set Up Enviroment
+
+### step1. install graphviz
+
+```
+//on osx
+brew install graphviz
+``` 
+* to install on other system, you can find package on
+[graphviz official website](http://www.graphviz.org/Download..php)
+
+### step2. install plantuml
+
+```
+//on osx
+brew install plantuml
+```
+
+* to install on other system, you can find package on
+[plantuml official website](http://plantuml.com/download)
 
 ## How to Use
 
@@ -46,7 +65,7 @@ umlConfig {
         add "com.heavy.autouml.model"
     }
 
-    //specify classes to create the diagram in the result. both with classes specified by packages
+    //specify classes to create the diagram in the result. together with classes specified by packages
     classes {
         add "com.heavy.autouml.controller.organization.DiagramDataOrganiser"
     }
