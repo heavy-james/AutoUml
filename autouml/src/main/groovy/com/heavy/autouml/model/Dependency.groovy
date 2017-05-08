@@ -14,8 +14,8 @@ public class Dependency implements Comparable<Dependency> {
     private static final String SYMBOLE_COMPOSITION = "--*";
     private static final String SYMBOL_AGGREGATION = "--o";
 
-    private static final String DES_IMPLEMENT = "implemented";
-    private static final String DES_INHERIT = "inherited";
+    private static final String DES_IMPLEMENT = "implements";
+    private static final String DES_INHERIT = "extends";
     private static final String DES_BELONG = "declares";
     private static final String DES_METHOD_ARGS = "uses";
     private static final String DES_MEMBER = "contains";
