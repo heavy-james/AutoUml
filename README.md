@@ -128,3 +128,15 @@ umlConfig {
 ./gradlew clean build createUml
 
 ```
+
+## result show
+
+### class DefaultServiceRegistry with detail info diagram
+
+![](https://heavy-james.github.io/images/example/autouml/DefaultServiceRegistry-pkgd.png)
+
+
+
+### class DefaultServiceRegistry with simple info diagram
+
+![](https://heavy-james.github.io/images/example/autouml/DefaultServiceRegistry-simple.png)
