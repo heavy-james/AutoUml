@@ -32,7 +32,7 @@ buildscript {
 
     dependencies {
         //add this line to use plugin
-        classpath 'com.boyan.heavy:autouml:1.0.0'
+        classpath 'com.boyan.heavy:autouml:1.0.7'
 
     }
 }
